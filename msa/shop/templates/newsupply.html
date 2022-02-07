@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}MSA-New Supply Vendors{% endblock %}
+
+{% block content %}
+
+<h2></h2>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Serial Number</th>
+            <th scope="col">Vendor ID</th>
+            <th scope="col">Vendor Name</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Email</th>
+            <th scope="col">New Supply</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for vendor in vendors.all %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ vendor.id }}</td>
+            <td>{{ vendor.name }}</td>
+            <td>{{ vendor.phone }}</td>
+            <td>{{ vendor.email }}</td>
+            <td align="center">
+              <form method="get" action="{% url 'newsupplymed' vendor.id %}">
+                {% csrf_token%}
+
+                <button type="submit" class="btn btn-primary">
+                  New Supply
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

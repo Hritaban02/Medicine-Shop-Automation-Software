@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} MSA-Expired Items{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Serial Number</th>
+            <th scope="col">Batch Id</th>
+            <th scope="col">Trade Name</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Expiry Date</th>
+            <th scope="col">Purchase Price</th>
+            <th scope="col">Vendor </th>
+            <th scope="col">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for med in expired.all %}
+          <tr>
+            <td>{{ forloop.counter}}</td>
+            <td>{{ med.batch_id }}</td>
+            <td>{{ med.medicine.trade_name }}</td>
+            <td>{{ med.order_date }}</td>
+            <td>{{ med.expiry_date }}</td>
+            <td>{{ med.medicine.purchasePrice }}</td>
+            <td>{{ med.medicine.vendor }}</td>
+            <td>{{ med.quantity }}</td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

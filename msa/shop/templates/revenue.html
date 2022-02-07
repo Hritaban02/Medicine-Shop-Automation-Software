@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+{% block title %}MSA-Calculate Revenue{% endblock %}
+
+{% block content %}
+<h1>Calculate Revenue</h1>
+<br/>
+<form method="POST" action={% url 'revenue' %}>
+    {% csrf_token %}
+
+	<label for="start_date" class="form-label">Start Date</label>
+    <div class="mb-3">
+      <input type="date" class="form-control" id="start_date" name="start_date">
+    </div>
+    <label for="end_date" class="form-label">End Date</label>
+    <div class="mb-3">
+        <input type="date" class="form-control" id="end_date" name="end_date">
+    </div>
+	<br/><br/><br/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
+
+  <br/><br/><br/><br/>
+{% endblock %}

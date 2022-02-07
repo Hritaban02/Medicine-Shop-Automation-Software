@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block title %}MSA-Sell Medicines{% endblock %}
+
+{% block content %}
+<form
+  method="POST"
+  action="{% url 'sellmedicine' %}"
+  >
+  {% csrf_token %}
+  <label for="name" class="form-label">Receipt Number </label>
+  <input
+      type="number"
+      class="form-control"
+      id="receipt"
+      placeholder="Receipt Number"
+      name="trans"
+      value="{{trans}}"
+      readonly
+    />
+  <br>
+
+  <label for="name" class="form-label">Customer Name </label>
+
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      id="tradename"
+      placeholder="Customer Name"
+      name="name"
+      {% if name != None and not form.errors%}
+      value="{{name}}"
+      readonly
+      {% else %}
+        value=""
+      {% endif %}
+    />
+  </div>
+
+
+  <label for="phone" class="form-label">Contact Number</label>
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      id="contact"
+      placeholder="Customer Contact"
+      name="phone"
+      {% if name != None and not form.errors %}
+      value="{{phone}}"
+      readonly
+      {% else %}
+        value=""
+      {% endif %}
+    />
+  </div>
+
+  <label for="medicine" class="form-label">Medicine</label> <br />
+  <select
+    class="custom-select" aria-label="Default select example"
+    name="medicine"
+    id="medicine"
+  >
+    {% for medicine in medicines %}
+    <option value="{{ medicine.id }}">{{ medicine.trade_name }}</option>
+    {% endfor %}
+  </select>
+  <br />
+  <label for="quantity" class="form-label">Quantity</label>
+  <div class="mb-3">
+    <input
+      type="number"
+      class="form-control"
+      id="phone"
+      placeholder="Quantity"
+      name="quantity"
+      min="1"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary" >Add Medicine</button>
+</form>
+
+<br /><br />
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Serial Number</th>
+            <th scope="col">Medicine</th>
+            <th scope="col">Batch ID</th>
+            <th scope="col">Expiry Date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in list %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td scope="row">{{ item.name }}</td>
+            <td scope="row">{{ item.batch_id }}</td>
+            <td scope="row">{{ item.expiry_date }}</td>
+            <td scope="row">{{ item.price }}</td>
+            <td scope="row">{{ item.quantity }}</td>
+            <td scope="row">{{ item.total_price }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row" colspan="6">Sum Total</th>
+            <th scope="row">{{total}}</td>
+          </tr>
+        </tfoot>
+      </table>
+     
+      <form method='get' action="{% url 'printreceipt' trans %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary" name="printreceipt">Print Receipt</button>
+        <!-- <input type="submit" value="Next" name="Next"/> -->
+      </form>
+
+      <!-- </form> -->
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

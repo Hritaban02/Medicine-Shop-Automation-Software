@@ -1,0 +1,52 @@
+{% extends 'base.html' %} 
+{% block title %}MSA-Search Results{% endblock %}
+
+
+{% block content %}
+{% if medicine %}
+    <h1>Search Results</h1>
+    <br/>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Medicine Code</th>
+            <th scope="col">Trade Name</th>
+            <th scope="col">Generic Name</th>
+            <th scope="col">Medicine Code</th>
+            <th scope="col">Vendor Name</th>
+            <th scope="col">Purchase Price</th>
+            <th scope="col">Selling Price</th>
+            <th scope="col">Quantity with Expiry Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for meditem in medicine %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td data-bs-toggle="tooltip" data-bs-placement="bottom" title="Description: {{ meditem.description }}">{{ meditem.trade_name }}</td>
+                <td data-bs-toggle="tooltip" data-bs-placement="bottom" title="Description: {{ meditem.description }}">{{ meditem.generic_name }}</td>
+                <td>{{ meditem.id }}</td>
+                <td data-bs-toggle="tooltip" data-bs-placement="bottom" title="Vendor ID: {{ meditem.vendor.id }}
+Vendor Phone: {{ meditem.vendor.phone }}
+Vendor Email: {{ meditem.vendor.email }}
+Purchase Price: {{ meditem.purchasePrice }}">{{ meditem.vendor.name }}</td>
+                <td>{{ meditem.purchasePrice }}</td>
+                <td>{{ meditem.unit_selling }}</td>
+                <td>
+                    <ul>
+                    {% for item in usable_item %}
+                        {% if item.medicine == meditem %}
+                            <li>Quantity: {{ item.quantity }} <br/> Expiry Date: {{ item.expiry_date }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h1>No Matching Items Found</h1>
+{% endif %}
+
+{% endblock %}

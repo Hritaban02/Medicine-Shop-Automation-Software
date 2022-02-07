@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}MSA-Updated Threshold{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Med ID</th>
+            <th scope="col">Trade Name</th>
+            <th scope="col">Generic Name</th>
+            <th scope="col">Vendor </th>
+            <th scope="col">Purchase Price</th>
+            <th scope="col">Unit Selling</th>
+            <th scope="col">Threshold Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for med in threshold.all %}
+          <tr>
+            <!-- <th scope="row">{{ forloop.counter }}</th> -->
+            <td>{{ med.id }}</td>
+            <td>{{ med.trade_name }}</td>
+            <td>{{ med.generic_name }}</td>
+            <td>{{ med.vendor }}</td>
+            <td>{{ med.purchasePrice }}</td>
+            <td>{{ med.unit_selling }}</td>
+            <td>{{ med.threshold_value }}</td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
